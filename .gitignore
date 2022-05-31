@@ -1,0 +1,10 @@
+.history
+*.o
+*.hi
+*.exe
+
+**/.vscode/*
+!**/.vscode/settings.json
+
+projects/
+**/output/*
