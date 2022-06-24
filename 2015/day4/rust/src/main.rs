@@ -1,4 +1,5 @@
 use md5;
+use std::time::{Duration, Instant};
 
 /*
 fn md5_hash(input: &str) -> i32 {
@@ -44,7 +45,6 @@ fn part1(input: &str) -> i32 {
         let hash_result: String = format!("{:?}", hash_result);
 
         if hash_result.starts_with("00000") {
-            println!("{}", i);
             return i;
         }
 
@@ -60,7 +60,6 @@ fn part2(input: &str) -> i32 {
         let hash_result: String = format!("{:?}", hash_result);
 
         if hash_result.starts_with("000000") {
-            println!("{}", i);
             return i;
         }
 
@@ -70,9 +69,13 @@ fn part2(input: &str) -> i32 {
 
 fn main() {
     let input = "ckczppom";
+    let start: Instant = Instant::now();
 
     // part1("abcdef"); // for checking against known case
     // part1("pqrstuv"); // for checking against known case
-    // part1(input);
-    part2(input);
+    println!("{}", part1(input));
+    // part2(input);
+
+    let duration: Duration = start.elapsed();
+    println!("Time elapsed: {:?}", duration);
 }

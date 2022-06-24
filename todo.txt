@@ -1,2 +1,2 @@
-- redo 2015 day 2 in common lisp 
-- 2015 day 4 rust implement md5 from scratch
+- 2015d2: do in common lisp
+- 2015d4: implement md5 from scratch (in rust?)
