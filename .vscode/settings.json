@@ -74,7 +74,10 @@
         "xlocmes": "cpp",
         "xlocmon": "cpp",
         "xloctime": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp",
+        "xhash": "cpp"
     },
     "cSpell.ignoreWords": [
         "aeiou",
