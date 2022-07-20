@@ -1,0 +1,4 @@
+1 -> c
+2 RSHIFT 1 -> b
+c AND b -> d
+c OR d -> a
