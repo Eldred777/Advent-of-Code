@@ -116,5 +116,12 @@
     "**/.vscode",
     "**/.vscode/**"
   ],
-  "editor.formatOnType": true
+  "editor.formatOnType": true,
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "c:\\Coding\\challenges\\Advent-of-Code",
+      "binaryPath": "c:\\Coding\\challenges\\Advent-of-Code\\main",
+      "binaryArgs": []
+    }
+  ]
 }
