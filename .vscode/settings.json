@@ -115,5 +115,6 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "editor.formatOnType": true
 }
