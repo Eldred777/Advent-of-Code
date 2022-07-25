@@ -15,20 +15,16 @@ int countStrReductions(const std::string &line)
     {
     case '\\':
       ++reduction;
-      ++ ++index;
+      ++index; // increment by two, when added to below 
       break;
     case '\"':
       ++reduction;
-      ++index;
       break;
     case 'x':
       reduction += 3;
-      ++index;
-      break;
-    default:
-      ++index;
       break;
     }
+    ++index;
   }
 
   // std::clog << '\n';
