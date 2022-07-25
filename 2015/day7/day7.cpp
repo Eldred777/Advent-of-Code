@@ -3,8 +3,6 @@
 #include <string>
 #include <unordered_map>
 
-// todo make my own NOT gate
-
 inline int custom_not(int i)
 {
   return 65535 ^ i;
@@ -165,16 +163,52 @@ part1(std::istream &is)
   return parseCircuit(map, targetWire);
 }
 
+std::string
+part2(std::istream &is)
+{
+  const std::string targetWire = "a";
+  const std::string targetWire2 = "b";
+  std::string output;
+
+  // Put all circuit inputs into a map.
+  std::unordered_map<std::string, std::string> map = {};
+  std::string line;
+  while (std::getline(is, line))
+  {
+    constructMapByLine(map, line);
+  }
+
+  // store output
+  output = parseCircuit(map, targetWire);
+
+  // reset input file
+  is.clear();                 // clear fail and eof bits
+  is.seekg(0, std::ios::beg); // back to the start!
+  // reset map
+  while (std::getline(is, line))
+  {
+    constructMapByLine(map, line);
+  }
+
+  map[targetWire2] = output; // overwrite map
+
+  return parseCircuit(map, targetWire);
+}
+
 int main()
 {
   std::ifstream inputFile("2015/day7/input.txt");
   // std::ifstream inputFile("2015/day7/fake-input.txt");
 
-  std::string p1 = "null";
-
   if (inputFile.is_open())
   {
     std::cout << "Part 1: " << part1(inputFile) << '\n';
+
+    // reset input file
+    inputFile.clear();                 // clear fail and eof bits
+    inputFile.seekg(0, std::ios::beg); // back to the start!
+
+    std::cout << "Part 2: " << part2(inputFile) << '\n';
   }
   else
   {
