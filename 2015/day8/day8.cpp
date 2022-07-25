@@ -7,54 +7,88 @@ int countStrReductions(const std::string &line)
   size_t index = 0;
   int reduction = 2;
 
-  while ((index = line.find('\\', index + 1)) != std::string::npos)
+  while ((index = line.find('\\', index)) != std::string::npos)
   {
+    // std::clog << index << ' ';
     // split into cases
     switch (line[index + 1])
     {
     case '\\':
       ++reduction;
-      index += 2;
+      ++ ++index;
       break;
     case '\"':
       ++reduction;
-      index += 2;
+      ++index;
       break;
     case 'x':
       reduction += 3;
-      index += 4;
+      ++index;
+      break;
+    default:
+      ++index;
       break;
     }
   }
+
+  // std::clog << '\n';
 
   return reduction;
 }
 
 int part1(std::istream &is)
 { // todo
-  int codeLength = 0;
-  int strLength = 0;
+  int acc = 0;
   std::string line;
 
   while (std::getline(is, line))
   {
+    // std::clog << line << '\n';
     // 2 for " " at start & end
-    codeLength += line.length();
-    strLength += countStrReductions(line);
+    acc += countStrReductions(line);
   }
 
-  return codeLength - strLength;
+  return acc;
+}
+
+int countStrElongations(const std::string &line)
+{ // Count how many times we will need to elongate the string.
+  size_t index = 0;
+  int acc = 2; // adds two more "
+
+  for (auto &c : line)
+  {
+    switch (c)
+    {
+    case '\\':
+      ++acc;
+      break;
+    case '"':
+      ++acc;
+      break;
+    }
+  }
+
+  return acc;
 }
 
 int part2(std::istream &is)
 { // todo
-  return 0;
+  std::string line;
+  int acc = 0;  
+
+  while (std::getline(is, line))
+  {
+    acc += countStrElongations(line);
+  }
+
+  return acc;
 }
 
 int main()
 {
-  // std::ifstream is("2015/day8/input");
-  std::ifstream is("2015/day8/fake-input");
+  std::ifstream is("2015/day8/input");
+  // std::ifstream is("2015/day8/fake-input");
 
   if (is.is_open())
   {
