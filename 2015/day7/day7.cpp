@@ -3,6 +3,13 @@
 #include <string>
 #include <unordered_map>
 
+// todo make my own NOT gate
+
+inline int custom_not(int i)
+{
+  return 65535 ^ i;
+}
+
 inline std::string rstrip(std::string &s)
 {
   if (s[s.size() - 1] == '\r')
@@ -43,22 +50,23 @@ parseCircuit(std::unordered_map<std::string, std::string> &map,
    * - OR
    *
    */
-  // std::cout << "Wire name:" << wireName << "::";
 
   try
   {
-    std::string circuitInput = map.at(wireName);
+    if (wireName.find_first_of(" ") == std::string::npos && wireName.find_first_of("1234567890") != std::string::npos)
+    { // Wire name is a number.
+      return wireName;
+    }
 
-    std::string circuit;
+    std::string circuit; // final result
+    std::string circuitInput = map.at(wireName);
     size_t foundIndex = std::string::npos;
     std::string left;
-    std::string command;
     std::string right;
     int i_left;
     int i_right;
     int i_circuit;
-
-    // std::cerr << circuitInput << ".\n";
+    bool overwrite = true; // Bool that goes false only if we do not want to overwrite the map with the found value.
 
     // If no spaces, then direct assignment
     if (circuitInput.find_first_of(" ") == std::string::npos)
@@ -66,6 +74,7 @@ parseCircuit(std::unordered_map<std::string, std::string> &map,
       if (circuitInput.find_first_of("1234567890") != std::string::npos)
       { // CASE: number
         circuit = circuitInput;
+        overwrite = false;
       }
       else
       { // CASE: another wire
@@ -73,25 +82,21 @@ parseCircuit(std::unordered_map<std::string, std::string> &map,
       }
     }
     else if ((foundIndex = circuitInput.find("NOT")) != std::string::npos)
-    { // NOTE! the inline assignment to foundIndex.
-      // circuit = "(NOT " + parseCircuit(map, circuitInput.substr(4)) + ")";
-      
+    {                                                   // NOTE! the inline assignment to foundIndex.
       left = parseCircuit(map, circuitInput.substr(4)); // take value
       i_left = std::stoi(left);                         // convert to integer
-      i_circuit = !i_left;                              // simulate
-      circuit = i_circuit;                              // convert to string
+      i_circuit = custom_not(i_left);                   // simulate
+      circuit = std::to_string(i_circuit);              // convert to string
     }
     else if ((foundIndex = circuitInput.find("SHIFT")) != std::string::npos)
     {
-      // std::cerr << "TOKENS: " << circuitInput.substr(0, foundIndex - 2) << ".\n";
-
-      // todo: check whether these left, right are correct
       left = parseCircuit(map, circuitInput.substr(0, foundIndex - 2));
-      right = parseCircuit(map, circuitInput.substr(foundIndex + 7));
+      right = parseCircuit(map, circuitInput.substr(foundIndex + 6));
 
       i_left = std::stoi(left); // convert to integer
       i_right = std::stoi(right);
 
+      // cases: left shift or right shift
       if (circuitInput[foundIndex - 1] == 'L')
       {
         // simulate left shift
@@ -104,48 +109,42 @@ parseCircuit(std::unordered_map<std::string, std::string> &map,
       }
 
       // convert to string
-      circuit = i_circuit;
+      circuit = std::to_string(i_circuit); // convert to string
     }
     else if ((foundIndex = circuitInput.find("AND")) != std::string::npos)
     {
-      // circuit = "(" + parseCircuit(map, circuitInput.substr(0, foundIndex - 1)) + " AND " + parseCircuit(map, circuitInput.substr(foundIndex + 4)) + ")";
-
-      // todo: check these left and right
       left = parseCircuit(map, circuitInput.substr(0, foundIndex - 1));
       right = parseCircuit(map, circuitInput.substr(foundIndex + 4));
 
       i_left = std::stoi(left); // convert to integer
       i_right = std::stoi(right);
 
-      i_circuit = i_left & i_right;
+      i_circuit = i_left & i_right; // simulate
 
-      circuit = i_circuit;
+      circuit = std::to_string(i_circuit); // convert to string
     }
     else if ((foundIndex = circuitInput.find("OR")) != std::string::npos)
     {
-      // std::cerr << "TOKENS: " << circuitInput.substr(0, foundIndex - 1) << "," << circuitInput.substr(foundIndex + 3) << ".\n";
-      circuit = "(" + parseCircuit(map, circuitInput.substr(0, foundIndex - 1)) + " OR " + parseCircuit(map, circuitInput.substr(foundIndex + 3)) + ")";
-
-      // todo: check these left and right
-      left = circuitInput.substr(0, foundIndex - 1);
-      right = circuitInput.substr(foundIndex + 3);
+      left = parseCircuit(map, circuitInput.substr(0, foundIndex - 1));
+      right = parseCircuit(map, circuitInput.substr(foundIndex + 3));
 
       i_left = std::stoi(left); // convert to integer
       i_right = std::stoi(right);
 
       i_circuit = i_left | i_right; // simulate circuit
 
-      circuit = i_circuit;
+      circuit = std::to_string(i_circuit); // convert to string
     }
 
-    // todo simulate circuit before updating map --- want a numerical value at the end
-
-    map[wireName] = circuit; // update map
+    if (overwrite)
+    {
+      map[wireName] = circuit; // update map
+    }
     return circuit;
   }
   catch (const std::out_of_range &e)
   { // Wire name not in map; return wire name.
-    std::cerr << "Wire name not in map: " << wireName << '\n';
+    std::cerr << "Wire name not in map: " << wireName << ".\n";
     return wireName;
   }
 }
@@ -175,14 +174,12 @@ int main()
 
   if (inputFile.is_open())
   {
-    p1 = part1(inputFile);
+    std::cout << "Part 1: " << part1(inputFile) << '\n';
   }
   else
   {
     std::cerr << "Error opening file.\n";
   }
-
-  std::cout << "Part 1: " << p1 << '\n';
 
   return 0;
 }
