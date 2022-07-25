@@ -26,6 +26,9 @@ endif
 2015d7:
 	${GCC} 2015/day7/day7.cpp -o main
 
+2015d8:
+	${GCC} 2015/day8/day8.cpp -o main
+
 clean: 
 	${RM} main${EXT}
 	${RRM} ${BUILD}
