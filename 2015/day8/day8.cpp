@@ -37,7 +37,7 @@ int countStrReductions(const std::string &line)
 }
 
 int part1(std::istream &is)
-{ // todo
+{
   int acc = 0;
   std::string line;
 
@@ -73,7 +73,7 @@ int countStrElongations(const std::string &line)
 }
 
 int part2(std::istream &is)
-{ // todo
+{
   std::string line;
   int acc = 0;  
 
