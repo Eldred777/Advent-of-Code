@@ -33,4 +33,16 @@
   (length (compute-n-iterations 40 *input*))) ; return length of x 
 
 (defun part1 ()
-  (format T "Part 1: ~a ~%" (compute-part1)))
+  (format T "Part 1: ~a~%" (compute-part1)))
+
+(defun compute-part2 ()
+  (length (compute-n-iterations 50 *input*))) ; return length of x 
+
+(defun part2 ()
+  (format T "Part 2: ~a~%" (compute-part2)))
+
+(defun main ()
+  (part1)
+  (part2))
+
+(main)
