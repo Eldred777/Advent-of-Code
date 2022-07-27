@@ -85,7 +85,11 @@
     "ittt"
   ],
   "cSpell.words": [
-    "ifeq"
+    "defparameter",
+    "dotimes",
+    "ifeq",
+    "incf",
+    "progn"
   ],
   "editor.formatOnType": true,
 }
