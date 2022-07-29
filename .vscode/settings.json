@@ -89,7 +89,8 @@
     "dotimes",
     "ifeq",
     "incf",
-    "progn"
+    "progn",
+    "rassoc"
   ],
   "editor.formatOnType": true,
 }
