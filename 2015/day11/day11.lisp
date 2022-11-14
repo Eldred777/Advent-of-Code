@@ -50,74 +50,69 @@
   ;; Mutates password. 
   (if (eq (car password) 'z)
       (progn
-       (setf (car password) 'a)
-       (setf (cdr password) (increment-password (cdr password))))
-      (setf (car password) (increment-letter (car password))))
-  password)
+       (setf (car password) 'a) ; increment first letter 
+       (setf (cdr password) ; increment the rest of the letters 
+         (increment-password (cdr password))))
+      (setf (car password) (increment-letter (car password)))) ; else, increment first letter 
+  password) ; return password 
 
 
 ;; part 1 predicates 
-(defun p1-pred1 (password)
+(defun p1-pred1 (init-password)
   ; FIXME: Throwing weird error, the value nil is not of type number. Input '(b h g k x b z v)
   ; Pred: increasing straight of at least 3 letters.
-  ;;; PRECONDITION: password length at least 3
-  (let ((previous1 (car password))
-        (previous2 (cadr password))
-        (comparison-result nil))
-    (member twe
-            (loop for x in (cddr password) ; iterate from second element
-                  collect (progn
-                           (setf comparison-result (all
-                                                     (= 1 (- (to-index previous1)
-                                                             (to-index previous2)))
-                                                     (= 1 (- (to-index previous2)
-                                                             (to-index x)))))
-                           (setf previous1 previous2) ; store var for next loop
-                           (setf previous2 x) ; store var for next loop 
-                           comparison-result ; collect result of comparison
-                                    )))))
+  (let ((result nil)
+        (do ((password init-password (cdr password)))
+            (; test form: check whether a match has been found, OR if password has <=2 letters
+             (or (eq result t)
+                 (<= (length password) 2))
+             ; return result 
+             result)
+          (; body: process whether FIRST THREE CHARACTERS in ascending order 
+           ; TODO: implement 
+          ))))
 
-(defun p1-pred2 (password)
-  ; Pred: no i, o, l
-  (not (member t (loop for x in password
-                       collect (if (member x '(i o l)) t nil)))))
+  (defun p1-pred2 (password)
+    ; Pred: no i, o, l
+    (not (member t (loop for x in password
+                         collect (if (member x '(i o l)) t nil)))))
 
-(defun p1-pred3 (password)
-  ; Pred: Double repeat. 
-  ; Following checks that there are two non-overlapping repeats
-  (member t
-          (cddr
-            (member t
-                    ; Following creates a list that is t when there is a repeat, nil else
-                    (let ((previous (car password))
-                          (comparison-result nil))
-                      ; iterate from second element
-                      (loop for x in (cdr password)
-                            collect (progn
-                                     (setf comparison-result (eq x previous))
-                                     ; Store var for next loop 
-                                     (setf previous x)
-                                     comparison-result)))))))
+  (defun p1-pred3 (password)
+    ; Pred: Double repeat. 
+    ; Following checks that there are two non-overlapping repeats
+    (member t
+            (cddr
+              (member t
+                      ; Following creates a list that is t when there is a repeat, nil else
+                      (let ((previous (car password))
+                            (comparison-result nil))
+                        ; iterate from second element
+                        (loop for x in (cdr password)
+                              collect (progn
+                                       (setf comparison-result (eq x previous))
+                                       ; Store var for next loop 
+                                       (setf previous x)
+                                       comparison-result)))))))
 
-(defun p1-pred (password)
-  (all
-    (p1-pred1 password)
-    (p1-pred2 password)
-    (p1-pred3 password)))
+  (defun p1-pred (password)
+    (all
+      (p1-pred1 password)
+      (p1-pred2 password)
+      (p1-pred3 password)))
 
+  ;;; TODO Part 2
 
-;;; TODO Part 2
+  ;;; Define main functions. 
+  (defun part1 (init-password)
+    ;; Increment input until it satisfies part 1 predicates. 
+    ;; Output to console. 
+    (format t "Part 1: ~a~%"
+      (do ((password init-password (increment-password password)))
+          ((p1-pred password) (password-to-string password)))))
 
+  (defun main ()
+    (let ((password (read-input-password)))
+      (format T "Initial password: ~a~%" (password-to-string password))
+      (part1 password)))
 
-;;; Define main functions. 
-(defun part1 (init-password)
-  ;; Increment input until it satisfies part 1 predicates. 
-  ;; Output to console. 
-  (format t "Part 1: ~a~%"
-    (do ((password init-password (increment-password password)))
-        ((p1-pred password) (password-to-string password)))))
-
-(defun main ()
-  (let ((password (read-input-password)))
-    (format T "Initial password: ~a~%" (password-to-string password))
-    (part1 password)))
+  (main)

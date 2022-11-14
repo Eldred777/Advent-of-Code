@@ -85,6 +85,9 @@
     "ittt"
   ],
   "cSpell.words": [
+    "cadr",
+    "cddr",
+    "defmacro",
     "defparameter",
     "dotimes",
     "ifeq",
