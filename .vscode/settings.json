@@ -96,4 +96,7 @@
     "rassoc"
   ],
   "editor.formatOnType": true,
+  "[lisp]": {
+    "editor.wordSeparators": "`|;:'\",()"
+  },
 }
