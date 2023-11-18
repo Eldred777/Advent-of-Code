@@ -77,7 +77,8 @@
     "xtree": "cpp",
     "list": "cpp",
     "unordered_set": "cpp",
-    "xhash": "cpp"
+    "xhash": "cpp",
+    "set": "cpp"
   },
   "cSpell.ignoreWords": [
     "aeiou",
