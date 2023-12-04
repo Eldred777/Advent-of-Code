@@ -15,3 +15,8 @@ void handle_file_stream(std::ifstream& is, std::string rel_filepath) {
     }
   }
 }
+
+void reset_file_stream(std::ifstream& is) {
+  is.clear();
+  is.seekg(0, std::ios::beg);
+}

@@ -100,4 +100,5 @@
   "[lisp]": {
     "editor.wordSeparators": "`|;:'\",()"
   },
+  "FSharp.suggestGitignore": false,
 }
