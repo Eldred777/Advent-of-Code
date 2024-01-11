@@ -11,4 +11,5 @@ Dates can be found by looking at the commit history, if you are so inclined.
 - 2015 day 12 in C++ 
 - 2023 day 1 in Haskell (very hacky)
 - 2023 day 2 in Clojure (new language!)
-
+- 2023 day 3 in C++
+- 

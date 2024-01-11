@@ -93,6 +93,7 @@
     "dotimes",
     "ifeq",
     "incf",
+    "pown",
     "progn",
     "rassoc"
   ],
