@@ -102,4 +102,7 @@
     "editor.wordSeparators": "`|;:'\",()"
   },
   "FSharp.suggestGitignore": false,
+  "[commonlisp]": {
+    "editor.wordSeparators": "`|;:'\",()"
+  },
 }
