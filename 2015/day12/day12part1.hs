@@ -19,5 +19,5 @@ annihilateNonNumeric x
 
 main :: IO ()
 main = do
-  file <- readFile "2015/day12/input"
+  file <- readFile "2015/day12/input.json"
   (print . sum . map (\x -> read x :: Int) . words . map annihilateNonNumeric) file -- part 1
