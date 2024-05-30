@@ -12,7 +12,8 @@ void handle_file_stream(std::ifstream &is, std::string rel_filepath) {
   int input_name_idx = rel_filepath.find('/', 6) + 1;
   is.open(rel_filepath.substr(input_name_idx));
   if (!is.is_open()) {
-    std::cerr << "Input file stream failed to open.";
+    std::cerr << "Input file stream failed to open with filepath: "
+              << rel_filepath;
     exit(1);
   }
 }
