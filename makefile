@@ -1,4 +1,5 @@
 GCC = g++
+CL = sbcl --script
 FLAGS=
 # FLAGS is useful largely for setting debug flag
 
@@ -35,6 +36,10 @@ endif
 
 15d9:
 	${GCC} 2015/day9/day9.cpp -o ${MAIN} ${FLAGS}
+15d10CL: 
+	${CL} 2015/day10/day10.lisp
+15d11CL: 
+	${CL} 2015/day11/day11.lisp
 
 clean: 
 	${RM} ${MAIN}

@@ -75,7 +75,6 @@
          ; return result 
          result)
       (; body: process whether LAST THREE CHARACTERS in ascending order 
-       ; TODO: implement 
        ; e.g. "abc"
        let ((x3 (to-index (first password)))
             (x2 (to-index (second password)))
@@ -139,3 +138,5 @@
     (format t "Part 2: ~a~%" (password-to-string (part2 password)))))
 
 (main)
+
+; TODO does not work when run with sbcl --script

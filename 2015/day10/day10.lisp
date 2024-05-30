@@ -45,6 +45,6 @@
   (part1)
   (part2))
 
-(require 'trivial-benchmark)
+; (require 'trivial-benchmark)
 ; (benchmark:with-timing (10) (main))
 (main)
