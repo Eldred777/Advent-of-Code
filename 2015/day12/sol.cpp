@@ -6,8 +6,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "json.cpp"
-
 int part1(json::value val) {
   int acc = 0;
   if (val.type == json::value::number) {
