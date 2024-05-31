@@ -2,6 +2,11 @@
 #include <iostream>
 #include <string>
 
+// macro to report results; not a fn so we avoid strange execution behaviour
+#define report_results(p1, p2)                                                 \
+  std::cout << "Part 1: " << p1 << '\n';                                       \
+  std::cout << "Part 2: " << p2 << std::endl;
+
 /* This allows me to run files either from the repo directory, or from the
 directory containing the source code. */
 void handle_file_stream(std::ifstream &is, std::string rel_filepath) {
@@ -27,8 +32,21 @@ void reset_file_stream(std::ifstream &is) {
   is.seekg(0, std::ios::beg);
 }
 
-// Convenience fn.
-void report_results(int p1, int p2) {
-  std::cout << "Part 1: " << p1 << '\n';
-  std::cout << "Part 2: " << p2 << std::endl;
+// -------------------------
+// String processing functions
+// -------------------------
+
+/* Returns index of `n+1`th word after the word at `offset`. Note that it does
+ * this by counting spaces; double spaces will cause issues.  */
+size_t skip_n_words(std::string s, size_t n, size_t offset) {
+  size_t i = offset;
+  if (s.at(i) == ' ') {
+    n--;
+  }
+  size_t j = 0;
+  while (j < n) {
+    i = s.find(' ', i + 1);
+    j++;
+  }
+  return i + 1;
 }
