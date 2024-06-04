@@ -37,7 +37,8 @@ void reset_file_stream(std::ifstream &is) {
 // -------------------------
 
 /* Returns index of `n+1`th word after the word at `offset`. Note that it does
- * this by counting spaces; double spaces will cause issues.  */
+this by counting spaces; double spaces or a string starting with a space will
+cause issues.  */
 size_t skip_n_words(std::string s, size_t n, size_t offset) {
   size_t i = offset;
   if (s.at(i) == ' ') {

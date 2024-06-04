@@ -38,6 +38,10 @@ endif
 15d12:
 	${GCC} -c 2015/day12/json.cpp  -o ${BUILD}/json.o
 	${GCC} 2015/day12/sol.cpp build/json.o -o ${BUILD}/${MAIN} ${FLAGS}
+15d13:
+	${GCC} 2015/day13/sol.cpp -o ${BUILD}/${MAIN} ${FLAGS}
+15d14:
+	${GCC} 2015/day14/sol.cpp -o ${BUILD}/${MAIN} ${FLAGS}
 
 clean: 
 	${RM} ${MAIN}
