@@ -13,3 +13,5 @@ Dates can be found by looking at the commit history, if you are so inclined.
 - 2023 day 3 in C++
 - 2015 day 12 in C++, basic JSON parser :D
 - 2015 day 14 in C++
+- 2015 day 13 in C++
+- 2015 day 16 in C++
