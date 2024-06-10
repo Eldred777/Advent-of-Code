@@ -15,3 +15,4 @@ Dates can be found by looking at the commit history, if you are so inclined.
 - 2015 day 14 in C++
 - 2015 day 13 in C++
 - 2015 day 16 in C++
+- 2015 day 18 in C++
