@@ -1,10 +1,10 @@
-(ns aoc.2023.day2
+(ns sol
   (:require [clojure.java.io :as io])
   (:require [clojure.string :as str]))
 
 ;; part 1 
 
-(def *max-balls*  {:red 12 :green 13 :blue 14})
+(def max-balls  {:red 12 :green 13 :blue 14})
 ;; "In format [R G B]"
 
 (defn get-game-id [game-string]
@@ -12,12 +12,6 @@
       (str/split #"(?:[: ])")
       second
       Integer/parseInt))
-
-(defn parse-state [state-string]
-  (as-> state-string s ;; "5 green, 3 red"
-    (str/split s #", ") ;; ["5 green", "3 red"]
-    (map #(str/split % #" ") s) ;; [["5", "green"], ["3", "red"]]
-    (parse-state-build-hash-map {} s)))
 
 (defn parse-state-build-hash-map [current-hash-map states-vec]
   (if (empty? states-vec)
@@ -28,6 +22,12 @@
               (Integer/parseInt (first x)))
        (rest states-vec)))))
 
+(defn parse-state [state-string]
+  (as-> state-string s ;; "5 green, 3 red"
+    (str/split s #", ") ;; ["5 green", "3 red"]
+    (map #(str/split % #" ") s) ;; [["5", "green"], ["3", "red"]]
+    (parse-state-build-hash-map {} s)))
+
 (defn parse-game [game-string]
   (as-> game-string s
     (str/split s #"(?:[:;] )")
@@ -37,11 +37,11 @@
 (defn valid-state? [state]
   (and
    (<= (get state :red 0)
-       (get *max-balls* :red))
+       (get max-balls :red))
    (<= (get state :green 0)
-       (get *max-balls* :green))
+       (get max-balls :green))
    (<= (get state :blue 0)
-       (get *max-balls* :blue))))
+       (get max-balls :blue))))
 
 (defn valid-game? [game]
   (reduce #(and %1 %2)
