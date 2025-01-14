@@ -1,2 +1,0 @@
-- 2015d2: do in common lisp
-- 2015d4: implement md5 from scratch (in rust?)
