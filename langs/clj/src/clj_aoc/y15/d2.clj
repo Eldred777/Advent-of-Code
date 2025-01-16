@@ -24,8 +24,14 @@
 
 (defn part1 [dims]
   (let [areas (map face-areas dims)]
-    (+ (reduce + (map #(apply min %) areas))
-       (* 2 (reduce + (map #(reduce + %) areas))))))
+    (+
+     (->> areas
+          (map #(apply min %))
+          (reduce +))
+     (->> areas
+          (map #(reduce + %))
+          (reduce +)
+          (* 2)))))
 
 (defn vol [dimensions]
   (apply * dimensions))
