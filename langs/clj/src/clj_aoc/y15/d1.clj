@@ -1,5 +1,5 @@
-(ns y15.d1
-  (:require [utils]))
+(ns clj-aoc.y15.d1
+  (:require [clj-aoc.utils :as utils]))
 
 (defn part1 [input]
   (apply max
@@ -7,10 +7,10 @@
                      (map (fn [c] (if (= c (first "(")) 1 -1))
                           input))))
 
-(println (part1 (utils/get-input 15 1)))
-
 (defn part2 [input]
-  2)
+  (let [cumsum (reductions + (map #(if (= % (first "(")) 1 -1) input))]
+    (+ 1 ; fence post counting   
+       (first (keep-indexed #(when (= %2 -1) %1) cumsum)))))
 
 (defn solve []
   (let [input (utils/get-input 15 1)]
