@@ -37,7 +37,6 @@
    :pos2 '(0 0) ; used for part 2
    '(0 0) 2})
 
-
 (defn map-add [travel-map direction]
   (let [pos (get-pos travel-map)
         new-pos (add-2d pos direction)
@@ -79,7 +78,7 @@
     ; main logic 
     (let [direction (first directions)
           new-map (map-add map direction)]
-      (part2-helper (swap-pos new-map) (rest directions)))))
+      (recur (swap-pos new-map) (rest directions)))))
 
 (defn part2
   "Relies on the fact there is only one robo-santa"
@@ -95,7 +94,7 @@
      (part2-helper (init-map2)))
     ;;  (count-houses)
 
-(part2 "^v^v^v^v^v")
+(part2 (utils/get-input 15 3))
 
 (defn solve []
   (let [input (utils/get-input 15 3)]
@@ -103,5 +102,3 @@
     (println "Part 2:" (part2 input))))
 
 (solve) ; StackOverflowError
-
-(part2 "^>v<")
