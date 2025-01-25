@@ -6,9 +6,13 @@
   [year day]
   (slurp (str "../../inputs/" year "day" day)))
 
-(defn get-input-lines
+(defn split-lines
   "Splits the input at newline chars"
   [input]
   (str/split input #"\r?\n"))
+
+;;;; Deprecated.
+(defn ^:deprecated get-input-lines [x]
+  (split-lines x))
 
 ;; TODO function to grab the input from the website
